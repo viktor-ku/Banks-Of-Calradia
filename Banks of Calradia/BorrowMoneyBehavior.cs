@@ -20,7 +20,7 @@ namespace BanksOfCalradia
 
         public override void SyncData(IDataStore store)
         {
-            store.SyncDataAsJson("_bankManager", ref _bankManager);
+            store.SyncData("_bankManager", ref _bankManager);
         }
 
         public int Threshold = 20_000;
@@ -32,7 +32,8 @@ namespace BanksOfCalradia
             {
                 town.ChangeGold(Amount);
                 _bankManager.Lend(town, Amount);
-                Message.Olive($"{town.Name} borrowed {Amount} denars");
+                int total = _bankManager.Total(town);
+                Message.Olive($"{town.Name} borrowed {Amount} denars ({total} total)");
             }
         }
 
